@@ -1,20 +1,25 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
+import AdminLayout from "../layouts/AdminLayout";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
-import NotFound from "../pages/NotFound";
 
-function AppRoutes() {
+export default function AppRoutes() {
   return (
     <Routes>
+      {/* Redirect root to login */}
       <Route path="/" element={<Navigate to="/login" replace />} />
 
+      {/* Public routes */}
       <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
 
-      <Route path="*" element={<NotFound />} />
+      {/* Protected routes */}
+      <Route element={<AdminLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+
+      {/* Fallback route */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
-
-export default AppRoutes;
