@@ -23,32 +23,38 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setError("");
-    setLoading(true);
+  setError("");
+  setLoading(true);
 
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/admin/auth/login`,
-        {
-          email: formData.email,
-          password: formData.password,
-        }
-      );
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/admin/auth/login`,
+      {
+        email: formData.email,
+        password: formData.password,
+      }
+    );
 
-      // Save token/user data if returned by API
-      localStorage.setItem("token", response.data.token);
+    const { access_token, refresh_token, user } =
+      response.data.data;
 
-      navigate("/dashboard");
-    } catch (err) {
-      setError(
-        err.response?.data?.message || "Invalid email or password"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Store auth data
+    localStorage.setItem("token", access_token);
+    localStorage.setItem("refreshToken", refresh_token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    navigate("/dashboard");
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+        "Invalid email or password"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
