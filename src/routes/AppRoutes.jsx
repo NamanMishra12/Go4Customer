@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import RedirectPage from "../pages/redirect/RedirectPage";
 import BlogsPage from "../pages/blogs/BlogsPage";
+import GlossaryPage from "../pages/glossary/GlossaryPage";
 
 export default function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/redirects" element={<RedirectPage />} />
+        <Route path="/glossary" element={<GlossaryPage />} />
       </Route>
 
       

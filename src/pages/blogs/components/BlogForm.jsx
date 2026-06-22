@@ -54,7 +54,7 @@ export default function BlogForm({
     control,
     handleSubmit,
     reset,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm({
     defaultValues,
