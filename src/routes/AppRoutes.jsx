@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AdminLayout from "../layouts/AdminLayout";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
+import RedirectPage from "../pages/redirect/RedirectPage";
 import BlogsPage from "../pages/blogs/BlogsPage";
 import GlossaryPage from "../pages/glossary/GlossaryPage";
 import LanguagesPage from "../pages/languages/LanguagesPage";
@@ -20,9 +21,12 @@ export default function AppRoutes() {
       <Route element={<AdminLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/redirects" element={<RedirectPage />} />
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/languages" element={<LanguagesPage />} />
       </Route>
+
+      
 
       {/* Fallback route */}
       <Route path="*" element={<Navigate to="/login" replace />} />

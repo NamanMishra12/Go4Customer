@@ -8,6 +8,7 @@ import { useCategories } from "../../../hooks/blogs/useCategories";
 import { useCreateBlog } from "../../../hooks/blogs/useCreateBlog";
 import { useUpdateBlog } from "../../../hooks/blogs/useUpdateBlog";
 import { useUploadBlogImage } from "../../../hooks/blogs/useUploadBlogImage";
+import { useLanguages } from "../../../hooks/blogs/useLanguages";
 
 const defaultValues = {
   title: "",
@@ -39,6 +40,9 @@ export default function BlogForm({
   const [imageFile, setImageFile] = useState(null);
 
   const { data: categories = [] } = useCategories();
+  const { data: languages = [] } = useLanguages();
+  console.log(languages);
+  console.log(Array.isArray(languages));
   const { data: blog } = useBlog(blogId);
 
   const createBlogMutation = useCreateBlog();
@@ -50,7 +54,7 @@ export default function BlogForm({
     control,
     handleSubmit,
     reset,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -190,8 +194,14 @@ export default function BlogForm({
               {...register("locale")}
               className="w-full rounded-lg border p-3"
             >
-              <option value="en">English</option>
-              <option value="hi">Hindi</option>
+              {languages.map((language) => (
+                <option
+                  key={language.id}
+                  value={language.abrv}
+                >
+                  {language.language}
+                </option>
+              ))}
             </select>
           </div>
 

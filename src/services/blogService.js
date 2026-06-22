@@ -38,6 +38,15 @@ export const deleteBlog = async (id) => {
   return data;
 };
 
+// get languages function-----------------
+export const getLanguages = async () => {
+  const { data } = await api.get("/languages");
+
+  return data.data.items;
+};
+
+// get languages function----------------
+
 export const uploadBlogImage = async ({ id, file }) => {
   const formData = new FormData();
 

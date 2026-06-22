@@ -24,6 +24,11 @@ export const sidebarConfig = [
         icon: LayoutDashboard,
       },
       {
+        title: "Redirect (301/302/404)",
+        path: "/redirects",
+        icon: Globe,
+      },
+      {
         title: "Site Configuration",
         path: "/site-configuration",
         icon: Settings,

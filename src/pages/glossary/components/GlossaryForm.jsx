@@ -25,7 +25,7 @@ const GlossaryForm = ({ glossaryId, onSuccess }) => {
     control,
     handleSubmit,
     reset,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm({ defaultValues });
 
