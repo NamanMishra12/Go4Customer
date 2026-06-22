@@ -11,6 +11,7 @@ import {
   Languages,
   MapPinned,
   FileSpreadsheet,
+  BookOpen,
 } from "lucide-react";
 
 export const sidebarConfig = [
@@ -67,6 +68,11 @@ export const sidebarConfig = [
         path: "/authors",
         icon: Users,
       },
+      {
+  title: "Glossary",
+  path: "/glossary",
+  icon: BookOpen,
+}
     ],
   },
 ];

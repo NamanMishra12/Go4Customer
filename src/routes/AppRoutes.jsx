@@ -4,6 +4,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import BlogsPage from "../pages/blogs/BlogsPage";
+import GlossaryPage from "../pages/glossary/GlossaryPage";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
       <Route element={<AdminLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/glossary" element={<GlossaryPage />} />
       </Route>
 
       {/* Fallback route */}
