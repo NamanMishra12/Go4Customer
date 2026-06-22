@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 
 import { useGlossary } from "../../../hooks/glossary/useGlossary";
 import { useGlossaryCategories } from "../../../hooks/glossary/useGlossaryCategories";
-import { useLanguages } from "../../../hooks/glossary/useLanguages";
+import { useLanguages } from "../../../hooks/glossary/useAvailableLanguages";
 import { useCreateGlossary } from "../../../hooks/glossary/useCreateGlossary";
 import { useUpdateGlossary } from "../../../hooks/glossary/useUpdateGlossary";
 

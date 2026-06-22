@@ -8,10 +8,10 @@ import {
   FileText,
   Users,
   MessageSquare,
-  Languages,
   MapPinned,
   FileSpreadsheet,
   BookOpen,
+  Languages,
 } from "lucide-react";
 
 export const sidebarConfig = [
@@ -45,7 +45,7 @@ export const sidebarConfig = [
       },
       {
         title: "Language",
-        path: "/language",
+        path: "/languages",
         icon: Languages,
       },
     ],
