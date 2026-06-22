@@ -4,6 +4,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import RedirectPage from "../pages/redirect/RedirectPage";
+import BlogsPage from "../pages/blogs/BlogsPage";
 
 export default function AppRoutes() {
   return (
@@ -17,8 +18,11 @@ export default function AppRoutes() {
       {/* Protected routes */}
       <Route element={<AdminLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/redirects" element={<RedirectPage />} />
       </Route>
+
+      
 
       {/* Fallback route */}
       <Route path="*" element={<Navigate to="/login" replace />} />

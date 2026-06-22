@@ -24,7 +24,7 @@ export const sidebarConfig = [
       },
       {
         title: "Redirect (301/302/404)",
-        path: "/redirect",
+        path: "/redirects",
         icon: Globe,
       },
       {
