@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import ReactQuill from "react-quill";
+import RichTextEditor from "../../../components/editor/RichTextEditor";
 
 import { useGlossary } from "../../../hooks/glossary/useGlossary";
 import { useGlossaryCategories } from "../../../hooks/glossary/useGlossaryCategories";
@@ -246,21 +246,16 @@ const GlossaryForm = ({ glossaryId, onSuccess }) => {
             Content / Answer
           </label>
 
-          <Controller
-            control={control}
-            name="answer_content"
-            rules={{
-              required: "Content is required",
-            }}
-            render={({ field }) => (
-              <ReactQuill
-                theme="snow"
-                value={field.value}
-                onChange={field.onChange}
-                className="mb-12"
-              />
-            )}
-          />
+         <Controller
+  name="answer_content"
+  control={control}
+  render={({ field }) => (
+    <RichTextEditor
+      value={field.value}
+      onChange={field.onChange}
+    />
+  )}
+/>
 
           {errors.answer_content && (
             <p className="text-sm text-red-500">

@@ -1,24 +1,28 @@
 import { useState } from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  ExternalLink,
+} from "lucide-react";
 
-import { useGlossaries } from "../../../hooks/glossary/useGlossaries";
-import { useDeleteGlossary } from "../../../hooks/glossary/useDeleteGlossary";
+import { useRedirects } from "../../../hooks/redirects/useRedirects";
+import { useDeleteRedirect } from "../../../hooks/redirects/useDeleteRedirect";
 
-const GlossaryTable = ({ onEdit }) => {
+const RedirectTable = ({ onEdit }) => {
   const [page, setPage] = useState(1);
 
   const perPage = 10;
 
-  const { data, isLoading } = useGlossaries(
+  const { data, isLoading } = useRedirects(
     page,
     perPage
   );
 
-  const deleteMutation = useDeleteGlossary();
+  const deleteMutation = useDeleteRedirect();
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Delete this glossary item?"
+      "Delete this redirect?"
     );
 
     if (!confirmed) return;
@@ -33,31 +37,31 @@ const GlossaryTable = ({ onEdit }) => {
   return (
     <div className="rounded-xl border bg-white p-6 shadow-sm">
       <h2 className="mb-6 text-xl font-semibold">
-        Glossary List
+        Redirect List
       </h2>
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="border-b bg-slate-50">
-            <tr>
+          <thead className="bg-slate-50">
+            <tr className="border-b">
               <th className="px-4 py-3 text-left">
-                Question
+                From URL
               </th>
 
               <th className="px-4 py-3 text-left">
-                Category
+                To URL
               </th>
 
               <th className="px-4 py-3 text-left">
-                Language
+                Type
               </th>
-
-              {/* <th className="px-4 py-3 text-left">
-                Views
-              </th> */}
 
               <th className="px-4 py-3 text-left">
                 Status
+              </th>
+
+              <th className="px-4 py-3 text-left">
+                Created
               </th>
 
               <th className="px-4 py-3 text-right">
@@ -76,27 +80,25 @@ const GlossaryTable = ({ onEdit }) => {
                   Loading...
                 </td>
               </tr>
-            ) : (
-              data?.items?.map((item) => (
+            ) : data?.items?.length ? (
+              data.items.map((item) => (
                 <tr
                   key={item.id}
                   className="border-b"
                 >
-                  <td className="px-4 py-3">
-                    {item.question}
+                  <td className="max-w-xs px-4 py-3 break-all">
+                    {item.from_url}
+                  </td>
+
+                  <td className="max-w-xs px-4 py-3 break-all">
+                    {item.to_url}
                   </td>
 
                   <td className="px-4 py-3">
-                    {item.category?.name}
+                    <span className="rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
+                      {item.redirect_type}
+                    </span>
                   </td>
-
-                  <td className="px-4 py-3">
-                    {item.language?.language}
-                  </td>
-
-                  {/* <td className="px-4 py-3">
-                    {item.total_views}
-                  </td> */}
 
                   <td className="px-4 py-3">
                     <span
@@ -107,25 +109,51 @@ const GlossaryTable = ({ onEdit }) => {
                       }`}
                     >
                       {item.is_active
-                        ? "Published"
-                        : "Draft"}
+                        ? "Active"
+                        : "Inactive"}
                     </span>
                   </td>
 
                   <td className="px-4 py-3">
+                    {item.created_at
+                      ? new Date(
+                          item.created_at
+                        ).toLocaleDateString()
+                      : "-"}
+                  </td>
+
+                  <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
+                      <a
+                        href={item.to_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-lg border p-2 text-green-600 hover:bg-green-50"
+                        title="Visit"
+                      >
+                        <ExternalLink
+                          size={16}
+                        />
+                      </a>
+
                       <button
-                        onClick={() => onEdit(item.id)}
+                        onClick={() =>
+                          onEdit(item.id)
+                        }
                         className="rounded-lg border p-2"
+                        title="Edit"
                       >
                         <Pencil size={16} />
                       </button>
 
                       <button
                         onClick={() =>
-                          handleDelete(item.id)
+                          handleDelete(
+                            item.id
+                          )
                         }
                         className="rounded-lg border p-2 text-red-600"
+                        title="Delete"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -133,6 +161,15 @@ const GlossaryTable = ({ onEdit }) => {
                   </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="p-6 text-center text-slate-500"
+                >
+                  No redirects found
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
@@ -141,7 +178,9 @@ const GlossaryTable = ({ onEdit }) => {
       <div className="mt-6 flex items-center justify-end gap-4">
         <button
           disabled={page === 1}
-          onClick={() => setPage((p) => p - 1)}
+          onClick={() =>
+            setPage((prev) => prev - 1)
+          }
           className="rounded-lg border px-4 py-2 disabled:opacity-50"
         >
           Previous
@@ -152,8 +191,13 @@ const GlossaryTable = ({ onEdit }) => {
         </span>
 
         <button
-          disabled={page === totalPages}
-          onClick={() => setPage((p) => p + 1)}
+          disabled={
+            page >= totalPages ||
+            totalPages === 0
+          }
+          onClick={() =>
+            setPage((prev) => prev + 1)
+          }
           className="rounded-lg border px-4 py-2 disabled:opacity-50"
         >
           Next
@@ -163,4 +207,4 @@ const GlossaryTable = ({ onEdit }) => {
   );
 };
 
-export default GlossaryTable;
+export default RedirectTable;

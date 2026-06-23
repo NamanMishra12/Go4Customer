@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import ReactQuill from "react-quill";
+import RichTextEditor from "../../../components/editor/RichTextEditor";
 import { decode } from "html-entities";
 
 import { useBlog } from "../../../hooks/blogs/useBlog";
@@ -20,16 +20,6 @@ const defaultValues = {
   category_id: "",
   locale: "en",
   is_active: true,
-};
-
-const quillModules = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link", "image"],
-    ["clean"],
-  ],
 };
 
 export default function BlogForm({
@@ -269,18 +259,15 @@ export default function BlogForm({
             </label>
 
             <Controller
-              control={control}
-              name="content"
-              render={({ field }) => (
-                <ReactQuill
-                  theme="snow"
-                  modules={quillModules}
-                  value={field.value}
-                  onChange={field.onChange}
-                  className="mb-12"
-                />
-              )}
-            />
+  name="content"
+  control={control}
+  render={({ field }) => (
+    <RichTextEditor
+      value={field.value}
+      onChange={field.onChange}
+    />
+  )}
+/>
           </div>
         </div>
 
