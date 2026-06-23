@@ -7,6 +7,7 @@ import RedirectsPage from "../pages/Redirects/RedirectsPage";
 import BlogsPage from "../pages/blogs/BlogsPage";
 import GlossaryPage from "../pages/glossary/GlossaryPage";
 import LanguagesPage from "../pages/languages/LanguagesPage";
+import NotFound from "../pages/NotFound";
 
 export default function AppRoutes() {
   return (
@@ -30,7 +31,7 @@ export default function AppRoutes() {
 
 
       {/* Fallback route */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
